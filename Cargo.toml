@@ -1,10 +1,9 @@
 [package]
 name = "release-from-changelog"
 authors = ["hermannm"]
-version = "0.1.0"
+publish = false # This project is binary-only, so we don't want to accidentally publish a library
 edition = "2021"
 license = "MIT"
-publish = false
 
 [dependencies]
 anyhow = "1.0.99"

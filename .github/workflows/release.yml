@@ -91,4 +91,4 @@ jobs:
     steps:
       # We use our own action here, for dogfooding
       - name: Create release from changelog
-        uses: hermannm/release-from-changelog@latest
+        uses: hermannm/release-from-changelog@v0.1.0
