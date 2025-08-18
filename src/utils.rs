@@ -42,5 +42,5 @@ pub(crate) fn get_required_env_var(name: &str) -> anyhow::Result<String> {
 }
 
 pub(crate) fn get_optional_env_var(name: &str) -> Option<String> {
-    env::var(name).ok()
+    env::var(name).require_non_blank().ok()
 }

@@ -13,6 +13,7 @@ fn gets_action_input_from_env() -> Result<()> {
             ("INPUT_CHANGELOG_PATH", "dir/CHANGELOG.md"),
             ("GITHUB_REPOSITORY", "hermannm/release-from-changelog"),
             ("INPUT_TOKEN", "test-token"),
+            ("GITHUB_TOKEN", "fallback-token"), // Should be ignored when INPUT_TOKEN is set
             ("GITHUB_API_URL", "https://api.github.com"),
         ],
         || {
@@ -43,7 +44,7 @@ fn optional_inputs_and_fallback() -> Result<()> {
             // When INPUT_TAG_NAME is not set, the tag name should be parsed from this env var
             ("GITHUB_REF", "refs/tags/v0.3.0"),
             ("GITHUB_REPOSITORY", "hermannm/release-from-changelog"),
-            ("INPUT_TOKEN", "test-token"),
+            ("GITHUB_TOKEN", "fallback-token"),
             ("GITHUB_API_URL", "https://api.github.com"),
         ],
         || {
@@ -57,7 +58,7 @@ fn optional_inputs_and_fallback() -> Result<()> {
                     changelog_file_path: None,
                     repo_name: "release-from-changelog".to_string(),
                     repo_owner: "hermannm".to_string(),
-                    auth_token: "test-token".to_string(),
+                    auth_token: "fallback-token".to_string(),
                     api_url: "https://api.github.com".to_string(),
                 }
             );

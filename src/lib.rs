@@ -59,17 +59,17 @@ impl ActionInput {
     pub fn from_env() -> anyhow::Result<ActionInput> {
         // We allow tag refs to be passed explicitly as 'tag_name', but fall back to the
         // 'GITHUB_REF' environment variable set by GitHub.
-        let tag_name = {
-            if let Some(tag_name) = get_optional_env_var("INPUT_TAG_NAME") {
-                tag_name
-            } else {
+        let tag_name = match get_optional_env_var("INPUT_TAG_NAME") {
+            Some(tag_name) => tag_name,
+            None => {
                 let tag_ref = get_required_env_var("GITHUB_REF")?;
                 // We expect this prefix for tag refs. See GitHub docs for GITHUB_REF:
                 // https://docs.github.com/en/actions/reference/workflows-and-actions/variables
                 tag_ref.strip_prefix("refs/tags/")
                     .with_context(||
                         format!("Expected 'GITHUB_REF' environment variable to be on the format 'refs/tags/<tag_name>', but got '{tag_ref}'")
-                    )?.to_owned()
+                    )?
+                    .to_owned()
             }
         };
 
@@ -79,13 +79,20 @@ impl ActionInput {
                 format!("Expected 'GITHUB_REPOSITORY' environment variable to be on the format 'repo_owner/repo_name', but got '{repo}'")
             )?;
 
+        // GitHub token may be set explicitly through INPUT_TOKEN, but if not we fall back to
+        // GITHUB_TOKEN
+        let auth_token = match get_optional_env_var("INPUT_TOKEN") {
+            Some(token) => token,
+            None => get_required_env_var("GITHUB_TOKEN")?,
+        };
+
         Ok(ActionInput {
             tag_name,
             release_name: get_optional_env_var("INPUT_RELEASE_NAME"),
             changelog_file_path: get_optional_env_var("INPUT_CHANGELOG_PATH"),
             repo_name: repo_name.to_owned(),
             repo_owner: repo_owner.to_owned(),
-            auth_token: get_required_env_var("INPUT_TOKEN")?,
+            auth_token,
             api_url: get_required_env_var("GITHUB_API_URL")?,
         })
     }
