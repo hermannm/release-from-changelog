@@ -40,6 +40,11 @@ impl GitHubApiClient<'_> {
             .header("Accept", "application/vnd.github+json")
             .header("Authorization", format!("Bearer: {auth_token}"))
             .header("X-GitHub-Api-Version", "2022-11-28")
+            // GitHub API requires sending a User-Agent header, and they recommend setting it to
+            // your GitHub username:
+            // https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api#user-agent
+            // In this case, that will be the `repo_owner`.
+            .header("User-Agent", repo_owner)
             .send()
             .context("Failed to send create release request to GitHub")?;
 

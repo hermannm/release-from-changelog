@@ -11,6 +11,7 @@ fn creates_release_from_changelog() -> Result<()> {
         .match_header("Accept", "application/vnd.github+json")
         .match_header("Authorization", format!("Bearer: {TEST_TOKEN}").as_str())
         .match_header("X-GitHub-Api-Version", "2022-11-28")
+        .match_header("User-Agent", "hermannm")
         .with_status(201)
         .with_body(GITHUB_CREATE_RELEASE_RESPONSE)
         .create();
