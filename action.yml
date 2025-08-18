@@ -1,0 +1,43 @@
+name: Release from changelog
+description: Creates a GitHub release from a CHANGELOG.md entry.
+author: hermannm
+
+inputs:
+  token:
+    description: >
+      GitHub auth token to use for creating the release.
+      If not specified, we use the GITHUB_TOKEN environment variable provided by GitHub Actions.
+    required: false
+  tag_name:
+    description: >
+      Explicit name of the tag to create a release for.
+      The tag name should be on semantic versioning format (<major>.<minor>.<patch>), optionally
+      with a leading 'v' (example: v0.1.0).
+      If not specified, we get the tag name from the GITHUB_REF set by the workflow's trigger.
+      GITHUB_REF must be on the format 'refs/tags/<tag_name>', which it will be if 'push: tags' is
+      used as the trigger for the workflow.
+    required: false
+  release_title:
+    description: >
+      Title of the GitHub release to create.
+      Defaults to the tag name if not specified.
+    required: false
+  changelog_path:
+    description: >
+      Path to CHANGELOG.md file, which we parse to find an entry for the release tag.
+      Defaults to CHANGELOG.md at the root of the repo if not specified.
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/hermannm/release-from-changelog:v0.1.0'
+  env:
+    INPUT_TOKEN: ${{ inputs.token }}
+    INPUT_TAG_NAME: ${{ inputs.tag_name }}
+    INPUT_RELEASE_TITLE: ${{ inputs.release_title }}
+    INPUT_CHANGELOG_PATH: ${{ inputs.changelog_path }}
+
+# Sets the action's icon on GitHub Marketplace
+branding:
+  icon: 'book-open'
+  color: 'purple'
