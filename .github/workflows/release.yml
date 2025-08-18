@@ -21,6 +21,7 @@ jobs:
 
   publish-docker-image:
     name: Publish Docker image
+    needs: run-tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
