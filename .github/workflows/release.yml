@@ -89,8 +89,9 @@ jobs:
       # Needed to create release
       contents: write
     steps:
+      # https://github.com/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@v5
       # We use our own action here, for dogfooding
       - name: Create release from changelog
-        uses: hermannm/release-from-changelog@v0.1.2
-        with:
-          token: ${{ github.token }}
+        uses: hermannm/release-from-changelog@v0.1.3
