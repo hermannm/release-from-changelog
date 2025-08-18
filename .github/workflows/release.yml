@@ -80,3 +80,15 @@ jobs:
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
         run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign --yes {}@${{ steps.build-and-push.outputs.digest }}
+
+  create-release:
+    name: Create release
+    needs: publish-docker-image
+    runs-on: ubuntu-latest
+    permissions:
+      # Needed to create release
+      contents: write
+    steps:
+      # We use our own action here, for dogfooding
+      - name: Create release from changelog
+        uses: hermannm/release-from-changelog@latest
