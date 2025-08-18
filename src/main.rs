@@ -1,8 +1,5 @@
 use anyhow::Context;
-use release_from_changelog::{
-    create_github_release_for_changelog_entry,
-    ActionInput,
-};
+use release_from_changelog::{create_github_release_for_changelog_entry, ActionInput};
 use std::ops::Deref;
 use std::process::ExitCode;
 use tracing::{error, info};
@@ -14,7 +11,10 @@ fn main() -> ExitCode {
 
         let release = create_github_release_for_changelog_entry(&input)?;
 
-        info!(url = release.url, "Successfully created release '{}'", release.name);
+        info!(
+            url = release.url,
+            "Successfully created release '{}'", release.name
+        );
         Ok(())
     })
 }

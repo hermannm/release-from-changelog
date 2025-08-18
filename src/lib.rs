@@ -1,8 +1,6 @@
 use crate::{
-    utils::get_optional_env_var,
-    github_release::GitHubApiClient,
-    changelog_parsing::get_changelog_entry,
-    utils::get_required_env_var
+    changelog_parsing::get_changelog_entry, github_release::GitHubApiClient,
+    utils::get_optional_env_var, utils::get_required_env_var,
 };
 use anyhow::bail;
 use anyhow::Context;
@@ -15,7 +13,7 @@ pub mod github_release;
 mod utils;
 
 pub fn create_github_release_for_changelog_entry(
-    input: &ActionInput
+    input: &ActionInput,
 ) -> anyhow::Result<CreatedRelease> {
     // Validate that tag name follows semantic versioning
     validate_tag_name(&input.tag_name)?;
@@ -106,7 +104,7 @@ fn validate_tag_name(tag_name: &str) -> anyhow::Result<()> {
         // - Leading ^ and trailing $, so we always match the full string
         // - \d+ to match at least 1 digit
         // - \. to match dots between digits
-        Regex::new(r#"^\d+\.\d+\.\d+$"#).unwrap()
+        Regex::new(r#"^\d+\.\d+\.\d+$"#).expect("Should be valid regex")
     });
 
     if !SEMANTIC_VERSIONING_REGEX.is_match(version) {

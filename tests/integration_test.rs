@@ -1,8 +1,5 @@
 use anyhow::Result;
-use release_from_changelog::{
-    create_github_release_for_changelog_entry,
-    ActionInput,
-};
+use release_from_changelog::{create_github_release_for_changelog_entry, ActionInput};
 
 #[test]
 fn creates_release_from_changelog() -> Result<()> {
@@ -18,17 +15,15 @@ fn creates_release_from_changelog() -> Result<()> {
         .with_body(GITHUB_CREATE_RELEASE_RESPONSE)
         .create();
 
-    let release = create_github_release_for_changelog_entry(
-        &ActionInput {
-            tag_name: "v0.4.0".to_string(),
-            release_name: None,
-            changelog_file_path: Some("tests/testdata/CHANGELOG_1.md".to_string()),
-            repo_name: "gruvbox-plain".to_string(),
-            repo_owner: "hermannm".to_string(),
-            auth_token: TEST_TOKEN.to_string(),
-            api_url: server_url,
-        },
-    )?;
+    let release = create_github_release_for_changelog_entry(&ActionInput {
+        tag_name: "v0.4.0".to_string(),
+        release_name: None,
+        changelog_file_path: Some("tests/testdata/CHANGELOG_1.md".to_string()),
+        repo_name: "gruvbox-plain".to_string(),
+        repo_owner: "hermannm".to_string(),
+        auth_token: TEST_TOKEN.to_string(),
+        api_url: server_url,
+    })?;
 
     assert_eq!("v0.4.0", &release.name);
     assert_eq!(

@@ -1,15 +1,13 @@
+use crate::utils::IsBlank;
+use anyhow::{bail, Context, Result};
+use regex::Regex;
 use std::borrow::Cow;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
+use std::sync::LazyLock;
 
-use crate::utils::IsBlank;
-use anyhow::{bail, Context, Result};
-
-pub fn get_changelog_entry(
-    changelog_file_path: &Path,
-    version_to_find: &str,
-) -> Result<String> {
+pub fn get_changelog_entry(changelog_file_path: &Path, version_to_find: &str) -> Result<String> {
     let file = File::open(changelog_file_path).with_context(|| {
         format!("Failed to open changelog file at path '{changelog_file_path:?}'")
     })?;
@@ -47,7 +45,7 @@ pub fn get_changelog_entry(
             continue;
         }
 
-        if line.starts_with("#") {
+        if changelog_entry_ended(&line) {
             break;
         }
 
@@ -93,4 +91,21 @@ fn get_target_titles(version_to_find: &str) -> [String; 2] {
         format!("## [{version_without_prefix}]"),
         format!("## [{version_with_prefix}]"),
     ]
+}
+
+/// A changelog entry has ended if we find:
+/// - A higher-level title (#)
+/// - A new changelog entry at the same title level (##)
+/// - The start of the link section at the end of the changelog
+///   - Example: [v0.1.0]: <link>
+fn changelog_entry_ended(line: &str) -> bool {
+    static TAG_LINK_REGEX: LazyLock<Regex> = LazyLock::new(||
+            // Regex:
+            // - Leading ^ to match beginning of line
+            // - \[ and \] to match square brackets around link text
+            // - [^\[\]]+ to match link text: all characters _except_ [ or ]
+            // - : to match trailing colon
+            Regex::new(r#"^\[[^\[\]]+\]:"#).expect("Should be valid regex"));
+
+    line.starts_with("# ") || line.starts_with("## ") || TAG_LINK_REGEX.is_match(&line)
 }
