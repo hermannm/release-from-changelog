@@ -9,7 +9,7 @@ fn creates_release_from_changelog() -> Result<()> {
     let github_server_mock = server.mock("POST", "/repos/hermannm/gruvbox-plain/releases")
         .match_body(r#"{"tag_name":"v0.4.0","name":"v0.4.0","body":"- Overhaul UI colors in IntelliJ to improve consistency\n- Improve IntelliJ syntax highlighting for:\n    - TypeScript/JavaScript\n    - C/C++\n    - Markdown\n    - XML\n- Improve VSCode syntax highlighting for Rust"}"#)
         .match_header("Accept", "application/vnd.github+json")
-        .match_header("Authorization", format!("Bearer: {TEST_TOKEN}").as_str())
+        .match_header("Authorization", format!("Bearer {TEST_TOKEN}").as_str())
         .match_header("X-GitHub-Api-Version", "2022-11-28")
         .match_header("User-Agent", "hermannm")
         .with_status(201)

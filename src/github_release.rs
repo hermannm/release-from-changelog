@@ -38,7 +38,7 @@ impl GitHubApiClient<'_> {
             .post(url)
             .json(&request_body)
             .header("Accept", "application/vnd.github+json")
-            .header("Authorization", format!("Bearer: {auth_token}"))
+            .header("Authorization", format!("Bearer {auth_token}"))
             .header("X-GitHub-Api-Version", "2022-11-28")
             // GitHub API requires sending a User-Agent header, and they recommend setting it to
             // your GitHub username:
