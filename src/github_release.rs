@@ -23,7 +23,7 @@ impl GitHubApiClient<'_> {
         changelog: &str,
         repo_name: &str,
         repo_owner: &str,
-        github_token: &str,
+        auth_token: &str,
     ) -> Result<CreatedRelease> {
         let url = format!("{}/repos/{repo_owner}/{repo_name}/releases", self.api_url);
 
@@ -38,7 +38,7 @@ impl GitHubApiClient<'_> {
             .post(url)
             .json(&request_body)
             .header("Accept", "application/vnd.github+json")
-            .header("Authorization", format!("Bearer: {github_token}"))
+            .header("Authorization", format!("Bearer: {auth_token}"))
             .header("X-GitHub-Api-Version", "2022-11-28")
             .send()
             .context("Failed to send create release request to GitHub")?;

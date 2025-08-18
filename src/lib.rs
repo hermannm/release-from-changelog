@@ -79,20 +79,13 @@ impl ActionInput {
                 format!("Expected 'GITHUB_REPOSITORY' environment variable to be on the format 'repo_owner/repo_name', but got '{repo}'")
             )?;
 
-        // GitHub token may be set explicitly through INPUT_TOKEN, but if not we fall back to
-        // GITHUB_TOKEN
-        let auth_token = match get_optional_env_var("INPUT_TOKEN") {
-            Some(token) => token,
-            None => get_required_env_var("GITHUB_TOKEN")?,
-        };
-
         Ok(ActionInput {
             tag_name,
             release_title: get_optional_env_var("INPUT_RELEASE_TITLE"),
             changelog_file_path: get_optional_env_var("INPUT_CHANGELOG_PATH"),
             repo_name: repo_name.to_owned(),
             repo_owner: repo_owner.to_owned(),
-            auth_token,
+            auth_token: get_required_env_var("INPUT_TOKEN")?,
             api_url: get_required_env_var("GITHUB_API_URL")?,
         })
     }
