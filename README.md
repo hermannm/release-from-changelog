@@ -13,6 +13,7 @@ When publishing a new release:
     - We use our own action to create releases, but obviously we can't use the version that we're
       currently publishing
 - Add an entry to `CHANGELOG.md`
-- Create a new tag on the format `vX.Y.Z`, and push it
+- Create a commit: `git commit -m "Release vX.Y.Z"`, and push it
+- Create a tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`, and push it with `git push --tags`
     - Our release workflow will then run the tests, build the Docker image for the action, and
       publish a release with the changelog 
