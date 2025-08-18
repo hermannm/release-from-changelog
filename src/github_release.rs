@@ -27,7 +27,7 @@ impl GitHubApiClient<'_> {
     ) -> Result<CreatedRelease> {
         let url = format!("{}/repos/{repo_owner}/{repo_name}/releases", self.api_url);
 
-        let body = CreateReleaseRequest {
+        let request_body = CreateReleaseRequest {
             tag_name,
             name: release_title,
             body: changelog,
@@ -36,7 +36,7 @@ impl GitHubApiClient<'_> {
         let response = self
             .http_client
             .post(url)
-            .json(&body)
+            .json(&request_body)
             .header("Accept", "application/vnd.github+json")
             .header("Authorization", format!("Bearer: {github_token}"))
             .header("X-GitHub-Api-Version", "2022-11-28")
@@ -45,13 +45,13 @@ impl GitHubApiClient<'_> {
 
         if !response.status().is_success() {
             let response_status = response.status();
-            let response_body = match response.text() {
-                Err(_) => "<failed to read>".to_string(),
-                Ok(text) if text.is_blank() => "<blank>".to_string(),
-                Ok(text) => text,
+            let response_body_text = match response.text() {
+                Err(_) => "and failed to read response body".to_string(),
+                Ok(body) if body.is_blank() => "with blank response body".to_string(),
+                Ok(body) => format!("response body:\n\t{body}"),
             };
             bail!(
-                "Got unsuccessful response ({response_status}) from GitHub when trying to create release, response body: {response_body}",
+                "Got unsuccessful response ({response_status}) from GitHub when trying to create release, {response_body_text}",
             )
         }
 
