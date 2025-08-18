@@ -9,7 +9,7 @@ fn gets_action_input_from_env() -> Result<()> {
         &[
             ("INPUT_TAG_NAME", "v0.4.0"),
             ("GITHUB_REF", "refs/tags/v0.3.0"), // Should be ignored when INPUT_TAG is set
-            ("INPUT_RELEASE_NAME", "Release 0.4.0"),
+            ("INPUT_RELEASE_TITLE", "Release 0.4.0"),
             ("INPUT_CHANGELOG_PATH", "dir/CHANGELOG.md"),
             ("GITHUB_REPOSITORY", "hermannm/release-from-changelog"),
             ("INPUT_TOKEN", "test-token"),
@@ -23,7 +23,7 @@ fn gets_action_input_from_env() -> Result<()> {
                 input,
                 ActionInput {
                     tag_name: "v0.4.0".to_string(),
-                    release_name: Some("Release 0.4.0".to_string()),
+                    release_title: Some("Release 0.4.0".to_string()),
                     changelog_file_path: Some("dir/CHANGELOG.md".to_string()),
                     repo_name: "release-from-changelog".to_string(),
                     repo_owner: "hermannm".to_string(),
@@ -54,7 +54,7 @@ fn optional_inputs_and_fallback() -> Result<()> {
                 input,
                 ActionInput {
                     tag_name: "v0.3.0".to_string(),
-                    release_name: None,
+                    release_title: None,
                     changelog_file_path: None,
                     repo_name: "release-from-changelog".to_string(),
                     repo_owner: "hermannm".to_string(),

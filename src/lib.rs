@@ -18,8 +18,8 @@ pub fn create_github_release_for_changelog_entry(
     // Validate that tag name follows semantic versioning
     validate_tag_name(&input.tag_name)?;
 
-    // If release name is not set, use tag name
-    let release_name = input.release_name.as_deref().unwrap_or(&input.tag_name);
+    // If release title is not set explicitly, use tag name
+    let release_title = input.release_title.as_deref().unwrap_or(&input.tag_name);
     // If changelog file path is not set, default to 'CHANGELOG.md' at root
     let changelog_file_path = input
         .changelog_file_path
@@ -33,7 +33,7 @@ pub fn create_github_release_for_changelog_entry(
     let release = github_client
         .create_github_release(
             &input.tag_name,
-            &release_name,
+            &release_title,
             &changelog,
             &input.repo_name,
             &input.repo_owner,
@@ -47,7 +47,7 @@ pub fn create_github_release_for_changelog_entry(
 #[derive(PartialEq, Eq, Debug)]
 pub struct ActionInput {
     pub tag_name: String,
-    pub release_name: Option<String>,
+    pub release_title: Option<String>,
     pub changelog_file_path: Option<String>,
     pub repo_name: String,
     pub repo_owner: String,
@@ -88,7 +88,7 @@ impl ActionInput {
 
         Ok(ActionInput {
             tag_name,
-            release_name: get_optional_env_var("INPUT_RELEASE_NAME"),
+            release_title: get_optional_env_var("INPUT_RELEASE_TITLE"),
             changelog_file_path: get_optional_env_var("INPUT_CHANGELOG_PATH"),
             repo_name: repo_name.to_owned(),
             repo_owner: repo_owner.to_owned(),

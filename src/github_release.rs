@@ -19,7 +19,7 @@ impl GitHubApiClient<'_> {
     pub(crate) fn create_github_release(
         &self,
         tag_name: &str,
-        release_name: &str,
+        release_title: &str,
         changelog: &str,
         repo_name: &str,
         repo_owner: &str,
@@ -29,7 +29,7 @@ impl GitHubApiClient<'_> {
 
         let body = CreateReleaseRequest {
             tag_name,
-            name: &release_name,
+            name: release_title,
             body: changelog,
         };
 
@@ -59,7 +59,7 @@ impl GitHubApiClient<'_> {
             .context("GitHub create release request succeeded, but failed to get release URL from response body")?;
 
         Ok(CreatedRelease {
-            name: release_name.to_string(),
+            name: release_title.to_string(),
             url: response_body.html_url,
         })
     }

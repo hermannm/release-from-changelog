@@ -17,7 +17,7 @@ fn creates_release_from_changelog() -> Result<()> {
 
     let release = create_github_release_for_changelog_entry(&ActionInput {
         tag_name: "v0.4.0".to_string(),
-        release_name: None,
+        release_title: None,
         changelog_file_path: Some("tests/testdata/CHANGELOG_1.md".to_string()),
         repo_name: "gruvbox-plain".to_string(),
         repo_owner: "hermannm".to_string(),
