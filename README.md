@@ -7,6 +7,7 @@ GitHub Action for creating a GitHub release from a `CHANGELOG.md` entry on the
 
 - [Usage](#usage)
 - [Developer's guide](#developers-guide)
+- [Credits](#credits)
 
 ## Usage
 
@@ -86,3 +87,10 @@ When publishing a new release:
 - Create a tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`, and push it with `git push --tags`
     - Our release workflow will then run the tests, build the Docker image for the action, and
       publish a release with the changelog
+
+## Credits
+
+Credits to [Dylan Anthony](https://github.com/dbanty) for their wonderful blog post
+["How to Write a GitHub Action in Rust"](https://dylananthony.com/blog/how-to-write-a-github-action-in-rust/),
+which was of great help when setting up the `Dockerfile`, `action.yml` and
+`.github/workflows/release.yml` to deploy a Rust action with Docker.
