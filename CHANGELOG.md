@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.1.5] - 2025-08-19
+
+- Set `User-Agent` header in requests to GitHub API
+- Fix format of `Authorization` header in GitHub requests
+
 ## [v0.1.4] - 2025-08-19
 
 - Fix release workflow
@@ -19,6 +24,8 @@
 ## [v0.1.0] - 2025-08-19
 
 - Initial implementation of changelog parsing and GitHub release creation
+
+[v0.1.5]: https://github.com/hermannm/release-from-changelog/compare/v0.1.4...v0.1.5
 
 [v0.1.4]: https://github.com/hermannm/release-from-changelog/compare/v0.1.3...v0.1.4
 
