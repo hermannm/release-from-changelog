@@ -50,13 +50,14 @@ impl GitHubApiClient<'_> {
 
         if !response.status().is_success() {
             let response_status = response.status();
-            let response_body_text = match response.text() {
-                Err(_) => "and failed to read response body".to_string(),
-                Ok(body) if body.is_blank() => "with blank response body".to_string(),
-                Ok(body) => format!("response body:\n\t{body}"),
+
+            let (body_prefix, response_body): (&str, String) = match response.text() {
+                Err(_) => ("and failed to read response body", "".to_string()),
+                Ok(body) if body.is_blank() => ("with blank response body", "".to_string()),
+                Ok(body) => ("response_body:\n", body),
             };
             bail!(
-                "Got unsuccessful response ({response_status}) from GitHub when trying to create release, {response_body_text}",
+                "Got unsuccessful response ({response_status}) from GitHub when trying to create release, {body_prefix}{response_body}",
             )
         }
 
