@@ -16,7 +16,7 @@ GitHub Action for creating a GitHub release from a `CHANGELOG.md` entry on the
   ["Keep a Changelog" format](https://keepachangelog.com/) (see the
   [changelog in this repo](https://github.com/hermannm/release-from-changelog/blob/main/CHANGELOG.md?plain=1)
   as an example)
-    - This library expects changelog entry titles to start with `## [vX.Y.Z]` (the leading `v` is
+    - This action expects changelog entry titles to start with `## [vX.Y.Z]` (the leading `v` is
       optional)
 - Then, create a GitHub Actions release workflow (in `.github/workflows/release.yml`):
 

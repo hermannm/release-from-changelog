@@ -47,7 +47,7 @@ fn parses_changelog_at_end_of_file_with_links() -> Result<()> {
 }
 
 #[test]
-fn parses_changelog_from_this_library() -> Result<()> {
+fn parses_changelog_from_this_project() -> Result<()> {
     let changelog_entry = get_changelog_entry(&Path::new("CHANGELOG.md"), "v0.1.0")?;
 
     assert_eq!(
