@@ -7,7 +7,8 @@ inputs:
     description: >
       GitHub auth token to use for creating the release.
       Uses the default `github.token` if not specified.
-      Note that the action needs `contents: write` permission in order to create the release.
+      Note that the token needs `contents: write` permission in order to create the release:
+      https://github.com/orgs/community/discussions/68252
     required: false
     default: ${{ github.token }}
   tag_name:
@@ -15,19 +16,19 @@ inputs:
       Explicit name of the tag to create a release for.
       The tag name should be on semantic versioning format (<major>.<minor>.<patch>), optionally
       with a leading 'v' (example: v0.1.0).
-      If not specified, we get the tag name from the GITHUB_REF set by the workflow's trigger.
-      GITHUB_REF must be on the format 'refs/tags/<tag_name>', which it will be if 'push: tags' is
+      If not specified, we get the tag name from the `GITHUB_REF` set by the workflow's trigger.
+      `GITHUB_REF` must be on the format `refs/tags/<tag_name>`, which it will be if `push: tags` is
       used as the trigger for the workflow.
     required: false
   release_title:
     description: >
       Title of the GitHub release to create.
-      Defaults to the tag name if not specified.
+      Defaults to the tag name.
     required: false
   changelog_path:
     description: >
-      Path to CHANGELOG.md file, which we parse to find an entry for the release tag.
-      Defaults to CHANGELOG.md at the root of the repo if not specified.
+      Path to changelog file in this repo, which we parse to find an entry for the release tag.
+      Defaults to `CHANGELOG.md` at the root of the repo.
     required: false
 
 runs:
