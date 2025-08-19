@@ -6,6 +6,7 @@ GitHub Action for creating a GitHub release from a `CHANGELOG.md` entry on the
 **Contents:**
 
 - [Usage](#usage)
+- [Why another action?](#why-another-action)
 - [Developer's guide](#developers-guide)
 - [Credits](#credits)
 
@@ -71,6 +72,19 @@ You can customize the action with various inputs:
     # Defaults to `CHANGELOG.md` at the root of the repo.
     changelog_path: <path/to/changelog.md>
 ```
+
+## Why another action?
+
+There are multiple existing actions on GitHub Marketplace that does the same thing as this action,
+such as [`taiki-e/create-gh-release-action`](https://github.com/taiki-e/create-gh-release-action).
+The motivation for creating my own action was that creating a GitHub release unfortunately requires
+`contents: write` permission (see
+[this discussion](https://github.com/orgs/community/discussions/68252)). I wanted to automate
+releases in my own libraries, but I didn't want to trust third-party actions with this permission.
+And so I decided to create my own action, aiming to minimize third-party dependencies, and running
+it in Docker instead of downloading a raw binary in the action.
+
+As such, this action is originally designed for my own use. But feel free to use it yourself!
 
 ## Developer's guide
 
