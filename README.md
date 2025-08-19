@@ -53,7 +53,7 @@ You can customize the action with various inputs:
 
 ```yaml
 - name: Create release from changelog
-  uses: hermannm/release-from-changelog@v0.1.6
+  uses: hermannm/release-from-changelog@v0.1.7
   with:
     # GitHub auth token to use for creating the release.
     # Uses the default `github.token` if not specified.

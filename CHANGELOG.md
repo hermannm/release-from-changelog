@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.1.7] - 2025-08-19
+
+- Improve documentation
+- Improve log formatting of GitHub error responses
+
 ## [v0.1.6] - 2025-08-19
 
 - Use latest action version in release workflow
@@ -28,6 +33,8 @@
 ## [v0.1.0] - 2025-08-19
 
 - Initial implementation of changelog parsing and GitHub release creation
+
+[v0.1.7]: https://github.com/hermannm/release-from-changelog/compare/v0.1.6...v0.1.7
 
 [v0.1.6]: https://github.com/hermannm/release-from-changelog/compare/v0.1.5...v0.1.6
 
