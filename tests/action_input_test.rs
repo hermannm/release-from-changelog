@@ -21,13 +21,13 @@ fn gets_action_input_from_env() -> Result<()> {
             assert_eq!(
                 input,
                 ActionInput {
-                    tag_name: "v0.4.0".to_string(),
-                    release_title: Some("Release 0.4.0".to_string()),
-                    changelog_file_path: Some("dir/CHANGELOG.md".to_string()),
-                    repo_name: "release-from-changelog".to_string(),
-                    repo_owner: "hermannm".to_string(),
-                    auth_token: "test-token".to_string(),
-                    api_url: "https://api.github.com".to_string(),
+                    tag_name: "v0.4.0".to_owned(),
+                    release_title: Some("Release 0.4.0".to_owned()),
+                    changelog_file_path: Some("dir/CHANGELOG.md".to_owned()),
+                    repo_name: "release-from-changelog".to_owned(),
+                    repo_owner: "hermannm".to_owned(),
+                    auth_token: "test-token".to_owned(),
+                    api_url: "https://api.github.com".to_owned(),
                 }
             );
 
@@ -52,13 +52,13 @@ fn optional_inputs_and_fallback() -> Result<()> {
             assert_eq!(
                 input,
                 ActionInput {
-                    tag_name: "v0.3.0".to_string(),
+                    tag_name: "v0.3.0".to_owned(),
                     release_title: None,
                     changelog_file_path: None,
-                    repo_name: "release-from-changelog".to_string(),
-                    repo_owner: "hermannm".to_string(),
-                    auth_token: "test-token".to_string(),
-                    api_url: "https://api.github.com".to_string(),
+                    repo_name: "release-from-changelog".to_owned(),
+                    repo_owner: "hermannm".to_owned(),
+                    auth_token: "test-token".to_owned(),
+                    api_url: "https://api.github.com".to_owned(),
                 }
             );
 

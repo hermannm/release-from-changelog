@@ -17,12 +17,12 @@ fn creates_release_from_changelog() -> Result<()> {
         .create();
 
     let release = create_github_release_for_changelog_entry(&ActionInput {
-        tag_name: "v0.4.0".to_string(),
+        tag_name: "v0.4.0".to_owned(),
         release_title: None,
-        changelog_file_path: Some("tests/testdata/CHANGELOG_1.md".to_string()),
-        repo_name: "gruvbox-plain".to_string(),
-        repo_owner: "hermannm".to_string(),
-        auth_token: TEST_TOKEN.to_string(),
+        changelog_file_path: Some("tests/testdata/CHANGELOG_1.md".to_owned()),
+        repo_name: "gruvbox-plain".to_owned(),
+        repo_owner: "hermannm".to_owned(),
+        auth_token: TEST_TOKEN.to_owned(),
         api_url: server_url,
     })?;
 

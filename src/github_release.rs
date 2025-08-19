@@ -52,8 +52,8 @@ impl GitHubApiClient<'_> {
             let response_status = response.status();
 
             let (body_prefix, response_body): (&str, String) = match response.text() {
-                Err(_) => ("and failed to read response body", "".to_string()),
-                Ok(body) if body.is_blank() => ("with blank response body", "".to_string()),
+                Err(_) => ("and failed to read response body", "".to_owned()),
+                Ok(body) if body.is_blank() => ("with blank response body", "".to_owned()),
                 Ok(body) => ("response_body:\n", body),
             };
             bail!(
@@ -65,7 +65,7 @@ impl GitHubApiClient<'_> {
             .context("GitHub create release request succeeded, but failed to get release URL from response body")?;
 
         Ok(CreatedRelease {
-            name: release_title.to_string(),
+            name: release_title.to_owned(),
             url: response_body.html_url,
         })
     }
