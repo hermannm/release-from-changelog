@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.1.6] - 2025-08-19
+
+- Use latest action version in release workflow
+
 ## [v0.1.5] - 2025-08-19
 
 - Set `User-Agent` header in requests to GitHub API
@@ -24,6 +28,8 @@
 ## [v0.1.0] - 2025-08-19
 
 - Initial implementation of changelog parsing and GitHub release creation
+
+[v0.1.6]: https://github.com/hermannm/release-from-changelog/compare/v0.1.5...v0.1.6
 
 [v0.1.5]: https://github.com/hermannm/release-from-changelog/compare/v0.1.4...v0.1.5
 
