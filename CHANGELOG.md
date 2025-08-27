@@ -34,6 +34,8 @@
 
 - Initial implementation of changelog parsing and GitHub release creation
 
+[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.1.7...HEAD
+
 [v0.1.7]: https://github.com/hermannm/release-from-changelog/compare/v0.1.6...v0.1.7
 
 [v0.1.6]: https://github.com/hermannm/release-from-changelog/compare/v0.1.5...v0.1.6
