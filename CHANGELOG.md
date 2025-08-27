@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.2.1] - 2025-08-28
+
+- Fix build step in Dockerfile
+
 ## [v0.2.0] - 2025-08-28
 
 - Rewrite action from Rust to Go, to minimize third-party dependencies
@@ -44,7 +48,9 @@
 
 - Initial implementation of changelog parsing and GitHub release creation
 
-[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.1...HEAD
+
+[v0.2.1]: https://github.com/hermannm/release-from-changelog/compare/v0.2.0...v0.2.1
 
 [v0.2.0]: https://github.com/hermannm/release-from-changelog/compare/v0.1.7...v0.2.0
 

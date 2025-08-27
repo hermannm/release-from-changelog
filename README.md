@@ -42,7 +42,7 @@ jobs:
       # Creates GitHub release from CHANGELOG.md entry for the pushed tag
       # https://github.com/hermannm/release-from-changelog
       - name: Create release from changelog
-        uses: hermannm/release-from-changelog@v0.2.0
+        uses: hermannm/release-from-changelog@v0.2.1
 ```
 
 - When pushing a new tag on the format `vX.Y.Z`, this action will look for a corresponding entry in
@@ -52,7 +52,7 @@ You can customize the action with various inputs:
 
 ```yaml
 - name: Create release from changelog
-  uses: hermannm/release-from-changelog@v0.2.0
+  uses: hermannm/release-from-changelog@v0.2.1
   with:
     # GitHub auth token to use for creating the release.
     # Uses the default `github.token` if not specified.
@@ -94,7 +94,7 @@ When publishing a new release:
   go test ./...
   ```
 - Bump the `runs.image` version in `action.yml`
-- Bump the version used in the example under [Usage](#usage) in the README
+- Bump the version used in the examples under [Usage](#usage) in the README
 - Bump `hermannm/release-from-changelog` under `create-release` in `.github/workflows/release.yml`
   to the current latest version of the action
     - We use our own action to create releases, but obviously we can't use the version that we're
