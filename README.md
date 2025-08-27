@@ -90,17 +90,28 @@ As such, this action is originally designed for my own use. But feel free to use
 
 When publishing a new release:
 
+- Run tests:
+  ```
+  cargo test
+  ```
 - Bump the `runs.image` version in `action.yml`
 - Bump the version used in the example under [Usage](#usage) in the README
 - Bump `hermannm/release-from-changelog` under `create-release` in `.github/workflows/release.yml`
   to the current latest version of the action
     - We use our own action to create releases, but obviously we can't use the version that we're
       currently publishing
-- Add an entry to `CHANGELOG.md`
-- Create a commit: `git commit -m "Release vX.Y.Z"`, and push it
-- Create a tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`, and push it with `git push --tags`
+- Add an entry to `CHANGELOG.md` (with the current date)
+    - Remember to update the link section, and bump the version for the `[Unreleased]` link
+- Create commit and tag for the release (update `TAG` variable in below command):
+  ```
+  TAG=vX.Y.Z && git commit -m "Release ${TAG}" && git tag -a "${TAG}" -m "Release ${TAG}" && git log --oneline -2
+  ```
+- Push the commit and tag:
+  ```
+  git push && git push --tags
+  ```
     - Our release workflow will then run the tests, build the Docker image for the action, and
-      publish a release with the changelog
+      create a GitHub release with the pushed tag's changelog entry
 
 ## Credits
 
