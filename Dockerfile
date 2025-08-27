@@ -8,8 +8,8 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Now copy source files to build full binary
-COPY *.go ./
-RUN go build . -o /release-from-changelog
+COPY . .
+RUN go build -o /release-from-changelog
 
 # Switch to smaller base image for actually running the action
 FROM gcr.io/distroless/cc AS runtime
