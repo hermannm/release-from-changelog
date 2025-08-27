@@ -42,7 +42,7 @@ jobs:
       # Creates GitHub release from CHANGELOG.md entry for the pushed tag
       # https://github.com/hermannm/release-from-changelog
       - name: Create release from changelog
-        uses: hermannm/release-from-changelog@v0.1.6
+        uses: hermannm/release-from-changelog@v0.2.0
 ```
 
 - When pushing a new tag on the format `vX.Y.Z`, this action will look for a corresponding entry in
@@ -52,7 +52,7 @@ You can customize the action with various inputs:
 
 ```yaml
 - name: Create release from changelog
-  uses: hermannm/release-from-changelog@v0.1.7
+  uses: hermannm/release-from-changelog@v0.2.0
   with:
     # GitHub auth token to use for creating the release.
     # Uses the default `github.token` if not specified.
