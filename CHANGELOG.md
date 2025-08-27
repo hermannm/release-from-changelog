@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.2.2] - 2025-08-28
+
+- Use latest action version in release workflow, to verify that the new Go implementation works as
+  expected
+
 ## [v0.2.1] - 2025-08-28
 
 - Fix build step in Dockerfile
@@ -48,7 +53,9 @@
 
 - Initial implementation of changelog parsing and GitHub release creation
 
-[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.2...HEAD
+
+[v0.2.2]: https://github.com/hermannm/release-from-changelog/compare/v0.2.1...v0.2.2
 
 [v0.2.1]: https://github.com/hermannm/release-from-changelog/compare/v0.2.0...v0.2.1
 
