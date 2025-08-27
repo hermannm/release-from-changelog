@@ -1,47 +1,78 @@
-use anyhow::Result;
-use release_from_changelog::{create_github_release_for_changelog_entry, ActionInput};
+package changelogrelease
 
-#[test]
-fn creates_release_from_changelog() -> Result<()> {
-    let mut server = mockito::Server::new();
-    let server_url = server.url();
+import (
+	"context"
+	"hermannm.dev/opt"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+)
 
-    let github_server_mock = server.mock("POST", "/repos/hermannm/gruvbox-plain/releases")
-        .match_body(r#"{"tag_name":"v0.4.0","name":"v0.4.0","body":"- Overhaul UI colors in IntelliJ to improve consistency\n- Improve IntelliJ syntax highlighting for:\n    - TypeScript/JavaScript\n    - C/C++\n    - Markdown\n    - XML\n- Improve VSCode syntax highlighting for Rust"}"#)
-        .match_header("Accept", "application/vnd.github+json")
-        .match_header("Authorization", format!("Bearer {TEST_TOKEN}").as_str())
-        .match_header("X-GitHub-Api-Version", "2022-11-28")
-        .match_header("User-Agent", "hermannm")
-        .with_status(201)
-        .with_body(GITHUB_CREATE_RELEASE_RESPONSE)
-        .create();
+func TestCreateGitHubReleaseForChangelogEntry(t *testing.T) {
+	token := "test-token"
+	repoOwner := "hermannm"
 
-    let release = create_github_release_for_changelog_entry(&ActionInput {
-        tag_name: "v0.4.0".to_owned(),
-        release_title: None,
-        changelog_file_path: Some("tests/testdata/CHANGELOG_1.md".to_owned()),
-        repo_name: "gruvbox-plain".to_owned(),
-        repo_owner: "hermannm".to_owned(),
-        auth_token: TEST_TOKEN.to_owned(),
-        api_url: server_url,
-    })?;
+	githubServer := mockServer(
+		func(res http.ResponseWriter, req *http.Request) {
+			expectedRequestBody := `{"tag_name":"v0.4.0","name":"v0.4.0","body":"- Overhaul UI colors in IntelliJ to improve consistency\n- Improve IntelliJ syntax highlighting for:\n    - TypeScript/JavaScript\n    - C/C++\n    - Markdown\n    - XML\n- Improve VSCode syntax highlighting for Rust"}`
+			assertRequestBody(t, req, expectedRequestBody)
 
-    assert_eq!("v0.4.0", &release.name);
-    assert_eq!(
-        "https://github.com/hermannm/gruvbox-plain/releases/v0.4.0",
-        &release.url
-    );
+			assertHeader(t, req, "Authorization", "Bearer "+token)
+			assertHeader(t, req, "User-Agent", repoOwner)
+			assertHeader(t, req, "Accept", "application/vnd.github+json")
+			assertHeader(t, req, "X-GitHub-Api-Version", "2022-11-28")
 
-    github_server_mock.assert(); // Assert that mock server was hit
+			res.WriteHeader(http.StatusCreated) // GitHub responds with Created on create release
+			_, err := io.WriteString(res, githubCreateReleaseResponse)
+			assertNilError(t, err)
+		},
+	)
 
-    Ok(())
+	release, err := CreateGitHubReleaseForChangelogEntry(
+		context.Background(),
+		ActionInput{
+			TagName:           "v0.4.0",
+			ReleaseTitle:      opt.Empty[string](),
+			ChangelogFilePath: opt.Value("testdata/CHANGELOG_1.md"),
+			RepoName:          "gruvbox-plain",
+			RepoOwner:         "hermannm",
+			AuthToken:         token,
+			ApiURL:            githubServer.URL,
+		},
+		githubServer.Client(),
+	)
+	assertNilError(t, err)
+	assertEqual(t, release.Name, "v0.4.0", "release name")
+	assertEqual(
+		t,
+		release.URL,
+		"https://github.com/hermannm/gruvbox-plain/releases/v0.4.0",
+		"release URL",
+	)
 }
 
-static TEST_TOKEN: &str = "test-token";
+func assertRequestBody(t *testing.T, req *http.Request, expected string) {
+	t.Helper()
 
-/// Based on example response from:
-/// https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release
-static GITHUB_CREATE_RELEASE_RESPONSE: &str = r#"{
+	requestBody, err := io.ReadAll(req.Body)
+	assertNilError(t, err)
+	assertEqual(t, string(requestBody), expected, "request body")
+}
+
+func assertHeader(t *testing.T, req *http.Request, headerName string, expectedValue string) {
+	t.Helper()
+
+	assertEqual(t, req.Header.Get(headerName), expectedValue, headerName+" header")
+}
+
+func mockServer(handler func(http.ResponseWriter, *http.Request)) *httptest.Server {
+	return httptest.NewServer(http.HandlerFunc(handler))
+}
+
+// Based on example response from:
+// https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release
+var githubCreateReleaseResponse = `{
   "url": "https://api.github.com/repos/hermannm/gruvbox-plain/releases/4",
   "html_url": "https://github.com/hermannm/gruvbox-plain/releases/v0.4.0",
   "assets_url": "https://api.github.com/repos/hermannm/gruvbox-plain/releases/4/assets",
@@ -117,4 +148,4 @@ static GITHUB_CREATE_RELEASE_RESPONSE: &str = r#"{
       }
     }
   ]
-}"#;
+}`

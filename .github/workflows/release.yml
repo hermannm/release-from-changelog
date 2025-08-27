@@ -16,8 +16,13 @@ jobs:
       # https://github.com/actions/checkout
       - name: Checkout repository
         uses: actions/checkout@v5
-      - name: Run Cargo tests
-        run: cargo test
+      # https://github.com/actions/setup-go
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Run Go tests
+        run: go test ./...
 
   publish-docker-image:
     name: Publish Docker image

@@ -1,26 +1,21 @@
-# Based on https://dylananthony.com/blog/how-to-write-a-github-action-in-rust/
-FROM rust:1.89 as build
+# Based on https://docs.docker.com/guides/golang/build-images/#create-a-dockerfile-for-the-application
+FROM golang:1.25 AS build
 
-# Create empty Rust project first, which apparently allows Docker to cache more efficiently
-RUN USER=root cargo new --bin release-from-changelog
-WORKDIR /release-from-changelog
+WORKDIR /app
 
-# Run build with dependency manifests only, so Docker can cache dependencies
-COPY ./Cargo.toml ./Cargo.toml
-COPY ./Cargo.lock ./Cargo.lock
-RUN cargo build --release
-RUN rm src/*.rs
+# Download dependencies first, so Docker can do layer caching on them
+COPY go.mod go.sum ./
+RUN go mod download
 
 # Now copy source files to build full binary
-COPY ./src ./src
-RUN rm ./target/release/deps/release_from_changelog*
-RUN cargo build --release
+COPY *.go ./
+RUN go build . -o /release-from-changelog
 
 # Switch to smaller base image for actually running the action
 FROM gcr.io/distroless/cc AS runtime
 
 # Copy binary from build stage
-COPY --from=build /release-from-changelog/target/release/release-from-changelog .
+COPY --from=build /release-from-changelog /
 
 # Run binary
 ENTRYPOINT ["/release-from-changelog"]

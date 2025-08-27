@@ -8,7 +8,6 @@ GitHub Action for creating a GitHub release from a `CHANGELOG.md` entry on the
 - [Usage](#usage)
 - [Why another action?](#why-another-action)
 - [Developer's guide](#developers-guide)
-- [Credits](#credits)
 
 ## Usage
 
@@ -92,7 +91,7 @@ When publishing a new release:
 
 - Run tests:
   ```
-  cargo test
+  go test ./...
   ```
 - Bump the `runs.image` version in `action.yml`
 - Bump the version used in the example under [Usage](#usage) in the README
@@ -112,10 +111,3 @@ When publishing a new release:
   ```
     - Our release workflow will then run the tests, build the Docker image for the action, and
       create a GitHub release with the pushed tag's changelog entry
-
-## Credits
-
-Credits to [Dylan Anthony](https://github.com/dbanty) for their wonderful blog post
-["How to Write a GitHub Action in Rust"](https://dylananthony.com/blog/how-to-write-a-github-action-in-rust/),
-which was of great help when setting up the `Dockerfile`, `action.yml` and
-`.github/workflows/release.yml` to deploy a Rust action with Docker.
