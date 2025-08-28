@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"hermannm.dev/wrap"
+	"hermannm.dev/wrap/ctxwrap"
 )
 
 type GitHubApiClient struct {
@@ -64,11 +65,11 @@ func (client GitHubApiClient) createRelease(
 	defer response.Body.Close()
 
 	if !isSuccessResponse(response) {
-		responseBody := readErrorResponseBody(response)
-		// TODO: Replace with ctxwrap.NewErrorWithAttrs with responseStatus, responseBody attrs
-		return CreatedRelease{}, fmt.Errorf(
-			"Got unsuccessful response from GitHub when trying to create release (responseStatus: %d, responseBody: %s)",
-			response.StatusCode, responseBody,
+		return CreatedRelease{}, ctxwrap.NewErrorWithAttrs(
+			ctx,
+			"Got unsuccessful response from GitHub when trying to create release",
+			"responseStatus", response.StatusCode,
+			"responseBody", readErrorResponseBody(response),
 		)
 	}
 
