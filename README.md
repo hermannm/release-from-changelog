@@ -26,6 +26,8 @@ on:
     # Trigger release when a new semantic version tag (vX.Y.Z) is pushed
     tags:
       - v[0-9]+\.[0-9]+\.[0-9]+
+env:
+  FORCE_COLOR: 1 # For color output in GitHub Actions console (see https://force-color.org/)
 jobs:
   create-release:
     name: Create release
