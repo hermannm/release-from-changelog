@@ -3,7 +3,6 @@ package changelogrelease
 import (
 	"context"
 	"fmt"
-	"hermannm.dev/devlog/log"
 	"hermannm.dev/wrap"
 	"log/slog"
 	"net/http"
@@ -46,12 +45,6 @@ func CreateGitHubReleaseForChangelogEntry(
 	if err != nil {
 		return CreatedRelease{}, wrap.Error(err, "Failed to create GitHub release")
 	}
-
-	log.Info(
-		ctx,
-		fmt.Sprintf("Successfully created release '%s'", release.Name),
-		"url", release.URL,
-	)
 
 	return release, nil
 }
