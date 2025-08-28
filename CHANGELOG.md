@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.2.3] - 2025-08-28
+
+- Add `FORCE_COLOR` to example workflow in README, for enabling color output
+- Fix accidental duplicate log
+
 ## [v0.2.2] - 2025-08-28
 
 - Use latest action version in release workflow, to verify that the new Go implementation works as
@@ -53,7 +58,9 @@
 
 - Initial implementation of changelog parsing and GitHub release creation
 
-[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.3...HEAD
+
+[v0.2.3]: https://github.com/hermannm/release-from-changelog/compare/v0.2.2...v0.2.3
 
 [v0.2.2]: https://github.com/hermannm/release-from-changelog/compare/v0.2.1...v0.2.2
 
