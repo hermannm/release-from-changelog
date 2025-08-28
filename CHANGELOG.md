@@ -17,12 +17,12 @@
 ## [v0.2.0] - 2025-08-28
 
 - Rewrite action from Rust to Go, to minimize third-party dependencies
-  - The original motivation for writing this GitHub action myself was to minimize third-party
-    dependencies. But when writing Rust, one has to depend on third-party libraries, since the
-    standard library is relatively lightweight. Go, on the other hand, has a batteries-included
-    standard library, letting us build the action without any dependencies besides my own utility
-    libraries for Go. Not having to keep as many third-party dependencies up to date lessens the
-    maintenance burden of this action.
+    - The original motivation for writing this GitHub action myself was to minimize third-party
+      dependencies. But when writing Rust, one has to depend on third-party libraries, since the
+      standard library is relatively lightweight. Go, on the other hand, has a batteries-included
+      standard library, letting us build the action without any dependencies besides my own utility
+      libraries for Go. Not having to keep as many third-party dependencies up to date lessens the
+      maintenance burden of this action.
 
 ## [v0.1.7] - 2025-08-19
 

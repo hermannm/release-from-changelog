@@ -15,10 +15,11 @@ GitHub Action for creating a GitHub release from a `CHANGELOG.md` entry on the
   ["Keep a Changelog" format](https://keepachangelog.com/) (see the
   [changelog in this repo](https://github.com/hermannm/release-from-changelog/blob/main/CHANGELOG.md?plain=1)
   as an example)
-  - This action expects changelog entry titles to start with `## [vX.Y.Z]` (the leading `v` is
-    optional)
+    - This action expects changelog entry titles to start with `## [vX.Y.Z]` (the leading `v` is
+      optional)
 - Then, create a GitHub Actions release workflow (in `.github/workflows/release.yml`):
 
+<!-- @formatter:off -->
 ```yaml
 name: Release
 on:
@@ -46,12 +47,14 @@ jobs:
       - name: Create release from changelog
         uses: hermannm/release-from-changelog@v0.2.3
 ```
+<!-- @formatter:on -->
 
 - When pushing a new tag on the format `vX.Y.Z`, this action will look for a corresponding entry in
   `CHANGELOG.md`, and automatically create a GitHub release for it!
 
 You can customize the action with various inputs:
 
+<!-- @formatter:off -->
 ```yaml
 - name: Create release from changelog
   uses: hermannm/release-from-changelog@v0.2.3
@@ -73,6 +76,7 @@ You can customize the action with various inputs:
     # Defaults to `CHANGELOG.md` at the root of the repo.
     changelog_path: <path/to/changelog.md>
 ```
+<!-- @formatter:on -->
 
 ## Why another action?
 
@@ -99,10 +103,10 @@ When publishing a new release:
 - Bump the version used in the examples under [Usage](#usage) in the README
 - Bump `hermannm/release-from-changelog` under `create-release` in `.github/workflows/release.yml`
   to the current latest version of the action
-  - We use our own action to create releases, but obviously we can't use the version that we're
-    currently publishing
+    - We use our own action to create releases, but obviously we can't use the version that we're
+      currently publishing
 - Add an entry to `CHANGELOG.md` (with the current date)
-  - Remember to update the link section, and bump the version for the `[Unreleased]` link
+    - Remember to update the link section, and bump the version for the `[Unreleased]` link
 - Create commit and tag for the release (update `TAG` variable in below command):
   ```
   TAG=vX.Y.Z && git commit -m "Release ${TAG}" && git tag -a "${TAG}" -m "Release ${TAG}" && git log --oneline -2
@@ -111,5 +115,5 @@ When publishing a new release:
   ```
   git push && git push --tags
   ```
-  - Our release workflow will then run the tests, build the Docker image for the action, and
-    create a GitHub release with the pushed tag's changelog entry
+    - Our release workflow will then run the tests, build the Docker image for the action, and
+      create a GitHub release with the pushed tag's changelog entry
