@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"os"
+
 	"hermannm.dev/devlog"
 	"hermannm.dev/devlog/log"
 	"hermannm.dev/release-from-changelog/internal/changelogrelease"
 	"hermannm.dev/wrap"
-	"net/http"
-	"os"
 )
 
 func main() {

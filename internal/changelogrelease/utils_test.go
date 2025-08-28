@@ -1,11 +1,12 @@
 package changelogrelease
 
 import (
-	"hermannm.dev/devlog"
-	"hermannm.dev/devlog/log"
 	"os"
 	"reflect"
 	"testing"
+
+	"hermannm.dev/devlog"
+	"hermannm.dev/devlog/log"
 )
 
 // This function runs before all test functions, to set up our logger.

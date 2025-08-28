@@ -5,9 +5,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"hermannm.dev/wrap"
 	"io"
 	"net/http"
+
+	"hermannm.dev/wrap"
 )
 
 type GitHubApiClient struct {

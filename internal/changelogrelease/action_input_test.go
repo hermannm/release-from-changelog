@@ -1,10 +1,11 @@
 package changelogrelease
 
 import (
-	"hermannm.dev/opt"
 	"os"
 	"sync"
 	"testing"
+
+	"hermannm.dev/opt"
 )
 
 func TestActionInputFromEnv(t *testing.T) {

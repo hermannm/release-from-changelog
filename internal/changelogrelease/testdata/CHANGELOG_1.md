@@ -4,21 +4,21 @@
 
 - Overhaul UI colors in IntelliJ to improve consistency
 - Improve IntelliJ syntax highlighting for:
-    - TypeScript/JavaScript
-    - C/C++
-    - Markdown
-    - XML
+  - TypeScript/JavaScript
+  - C/C++
+  - Markdown
+  - XML
 - Improve VSCode syntax highlighting for Rust
 
 ## [v0.3.0] - 2023-09-11
 
 - Improve IntelliJ syntax highlighting for:
-    - Kotlin
-    - C#
-    - Java
+  - Kotlin
+  - C#
+  - Java
 - Improve VSCode syntax highlighting for:
-    - Go
-    - SQL
+  - Go
+  - SQL
 
 ## [v0.2.0] - 2023-01-19
 

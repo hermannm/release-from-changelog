@@ -3,12 +3,13 @@ package changelogrelease
 import (
 	"bufio"
 	"fmt"
-	"hermannm.dev/wrap"
 	"os"
 	"path/filepath"
 	"regexp"
 	"slices"
 	"strings"
+
+	"hermannm.dev/wrap"
 )
 
 func getChangelogEntry(changelogPath string, versionToFind string) (string, error) {

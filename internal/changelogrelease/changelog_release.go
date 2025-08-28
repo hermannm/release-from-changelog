@@ -3,11 +3,12 @@ package changelogrelease
 import (
 	"context"
 	"fmt"
-	"hermannm.dev/wrap"
 	"log/slog"
 	"net/http"
 	"regexp"
 	"strings"
+
+	"hermannm.dev/wrap"
 )
 
 type CreatedRelease struct {

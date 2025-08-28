@@ -2,9 +2,10 @@ package changelogrelease
 
 import (
 	"fmt"
-	"hermannm.dev/opt"
 	"os"
 	"strings"
+
+	"hermannm.dev/opt"
 )
 
 type ActionInput struct {

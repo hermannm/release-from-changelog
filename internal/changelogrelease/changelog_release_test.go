@@ -2,11 +2,12 @@ package changelogrelease
 
 import (
 	"context"
-	"hermannm.dev/opt"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"hermannm.dev/opt"
 )
 
 func TestCreateGitHubReleaseForChangelogEntry(t *testing.T) {
@@ -15,7 +16,7 @@ func TestCreateGitHubReleaseForChangelogEntry(t *testing.T) {
 
 	githubServer := mockServer(
 		func(res http.ResponseWriter, req *http.Request) {
-			expectedRequestBody := `{"tag_name":"v0.4.0","name":"v0.4.0","body":"- Overhaul UI colors in IntelliJ to improve consistency\n- Improve IntelliJ syntax highlighting for:\n    - TypeScript/JavaScript\n    - C/C++\n    - Markdown\n    - XML\n- Improve VSCode syntax highlighting for Rust"}`
+			expectedRequestBody := `{"tag_name":"v0.4.0","name":"v0.4.0","body":"- Overhaul UI colors in IntelliJ to improve consistency\n- Improve IntelliJ syntax highlighting for:\n  - TypeScript/JavaScript\n  - C/C++\n  - Markdown\n  - XML\n- Improve VSCode syntax highlighting for Rust"}`
 			assertRequestBody(t, req, expectedRequestBody)
 
 			assertHeader(t, req, "Authorization", "Bearer "+token)
