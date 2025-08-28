@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.2.4] - 2025-08-28
+
+- Improve error log on unsuccessful response from GitHub
+
 ## [v0.2.3] - 2025-08-28
 
 - Add `FORCE_COLOR` to example workflow in README, for enabling color output
@@ -58,7 +62,9 @@
 
 - Initial implementation of changelog parsing and GitHub release creation
 
-[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.3...HEAD
+[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.4...HEAD
+
+[v0.2.4]: https://github.com/hermannm/release-from-changelog/compare/v0.2.3...v0.2.4
 
 [v0.2.3]: https://github.com/hermannm/release-from-changelog/compare/v0.2.2...v0.2.3
 
