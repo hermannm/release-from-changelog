@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.2.7] - 2026-06-21
+
+- Update GitHub Actions dependencies for this action's release workflow
+
 ## [v0.2.6] - 2026-01-25
 
 - Remove single linebreaks inside paragraphs from changelog descriptions before sending to GitHub
@@ -72,7 +76,9 @@
 
 - Initial implementation of changelog parsing and GitHub release creation
 
-[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.6...HEAD
+[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.7...HEAD
+
+[v0.2.7]: https://github.com/hermannm/release-from-changelog/compare/v0.2.6...v0.2.7
 
 [v0.2.6]: https://github.com/hermannm/release-from-changelog/compare/v0.2.5...v0.2.6
 
