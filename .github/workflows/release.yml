@@ -14,12 +14,12 @@ jobs:
     permissions:
       contents: read
     steps:
-      # https://github.com/actions/checkout
+      # https://github.com/actions/checkout/releases
       - name: Checkout repository
-        uses: actions/checkout@v5
-      # https://github.com/actions/setup-go
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      # https://github.com/actions/setup-go/releases
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
           go-version-file: go.mod
       - name: Run Go tests
@@ -38,42 +38,42 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}
 
     steps:
-      # https://github.com/actions/checkout
+      # https://github.com/actions/checkout/releases
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
-      # https://github.com/sigstore/cosign-installer
+      # https://github.com/sigstore/cosign-installer/releases
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@v3.9.2
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
         with:
-          # https://github.com/sigstore/cosign
-          cosign-release: 'v2.5.3'
+          # https://github.com/sigstore/cosign/releases
+          cosign-release: 'v3.1.1'
 
-      # https://github.com/docker/login-action
+      # https://github.com/docker/login-action/releases
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # https://github.com/docker/metadata-action
+      # https://github.com/docker/metadata-action/releases
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      # https://github.com/docker/setup-buildx-action
+      # https://github.com/docker/setup-buildx-action/releases
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
 
-      # https://github.com/docker/build-push-action
+      # https://github.com/docker/build-push-action/releases
       - name: Build and push Docker image
         id: build-and-push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
@@ -82,7 +82,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # https://github.com/sigstore/cosign
+      # https://github.com/sigstore/cosign/releases
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
         run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign --yes {}@${{ steps.build-and-push.outputs.digest }}
@@ -95,9 +95,10 @@ jobs:
       # Needed to create release
       contents: write
     steps:
-      # https://github.com/actions/checkout
+      # https://github.com/actions/checkout/releases
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       # We use our own action here, for dogfooding
+      # https://github.com/hermannm/release-from-changelog/releases
       - name: Create release from changelog
-        uses: hermannm/release-from-changelog@v0.2.5
+        uses: hermannm/release-from-changelog@9c104544ddef1aacdd5c6dde690545b7954bca64 # v0.2.6
