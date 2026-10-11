@@ -1,5 +1,5 @@
 # Based on https://docs.docker.com/guides/golang/build-images/#create-a-dockerfile-for-the-application
-FROM golang:1.25 AS build
+FROM golang:1.26 AS build
 
 WORKDIR /app
 
