@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.2.8] - 2026-10-11
+
+- Don't remove linebreaks inside Markdown tables in changelog entries
+- Update dependencies
+
 ## [v0.2.7] - 2026-06-21
 
 - Update GitHub Actions dependencies for this action's release workflow
@@ -76,7 +81,9 @@
 
 - Initial implementation of changelog parsing and GitHub release creation
 
-[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.7...HEAD
+[Unreleased]: https://github.com/hermannm/release-from-changelog/compare/v0.2.8...HEAD
+
+[v0.2.8]: https://github.com/hermannm/release-from-changelog/compare/v0.2.7...v0.2.8
 
 [v0.2.7]: https://github.com/hermannm/release-from-changelog/compare/v0.2.6...v0.2.7
 
