@@ -58,6 +58,7 @@ func TestChangelogEntryWithLinebreaks(t *testing.T) {
 // - Numbered lists
 // - Comments
 // - Code blocks
+// - Tables
 func TestChangelogEntryWithLinebreaks2(t *testing.T) {
 	assertChangelogEntry(
 		t,
@@ -76,7 +77,19 @@ Another test.
 `+"```"+`js
 const example = "test"
 console.log(example)
-`+"```",
+`+"```"+`
+
+| Old                       | New                           |
+|---------------------------|-------------------------------|
+| ctxwrap.Error             | wrap.ErrorContext             |
+| ctxwrap.ErrorWithAttrs    | wrap.ErrorWithAttrsContext    |
+| ctxwrap.Errorf            | wrap.ErrorfContext            |
+| ctxwrap.Errors            | wrap.ErrorsContext            |
+| ctxwrap.ErrorsWithAttrs   | wrap.ErrorsWithAttrsContext   |
+| ctxwrap.Errorsf           | wrap.ErrorsfContext           |
+| ctxwrap.NewError          | wrap.NewErrorContext          |
+| ctxwrap.NewErrorWithAttrs | wrap.NewErrorWithAttrsContext |
+| ctxwrap.NewErrorf         | wrap.NewErrorfContext         |`,
 	)
 }
 

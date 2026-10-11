@@ -178,6 +178,12 @@ func removeParagraphLinebreaks(lines []string) []string {
 			continue
 		}
 
+		// Don't remove linebreaks in tables
+		if strings.HasPrefix(line, "|") {
+			newLines = append(newLines, line)
+			continue
+		}
+
 		if previousLine == "" {
 			newLines = append(newLines, line)
 			continue
