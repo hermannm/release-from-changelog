@@ -101,4 +101,4 @@ jobs:
       # We use our own action here, for dogfooding
       # https://github.com/hermannm/release-from-changelog/releases
       - name: Create release from changelog
-        uses: hermannm/release-from-changelog@a8773fa3f463cfeb711d8c683b7165fd9ba88caa # v0.2.7
+        uses: hermannm/release-from-changelog@45e4d3ca659ff31d666f6cb4a6741ffa151741e6 # v0.2.9
