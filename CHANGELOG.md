@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.2.9] - 2026-10-11
+
+- Fix Go version in Dockerfile
+
 ## [v0.2.8] - 2026-10-11
 
 - Don't remove linebreaks inside Markdown tables in changelog entries
