@@ -3,13 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 	"regexp"
 	"strings"
 
 	"hermannm.dev/devlog"
-	"hermannm.dev/devlog/log"
+	"hermannm.dev/devlog/errlog"
+	"hermannm.dev/devlog/sloginit"
 	"hermannm.dev/wrap"
 )
 
@@ -30,7 +32,7 @@ func main() {
 				return err
 			}
 
-			log.Info(
+			slog.InfoContext(
 				ctx,
 				fmt.Sprintf("Successfully created release '%s'", release.Name),
 				"url", release.URL,
@@ -109,13 +111,13 @@ func validateTagName(tagName string) error {
 var semanticVersioningRegex = regexp.MustCompile(`^[0-9]+\.[0-9]+\.[0-9]+$`)
 
 func runScript(script func(ctx context.Context) error) {
-	log.SetDefault(devlog.NewHandler(os.Stdout, nil))
+	sloginit.InitPrettyLogHandler(os.Stdout, &devlog.Options{RenameErrorAttrKey: "cause"})
 
 	ctx := context.Background()
 
 	err := script(ctx)
 	if err != nil {
-		log.Error(ctx, err, "")
+		slog.ErrorContext(ctx, "", errlog.Cause(err))
 		os.Exit(1)
 	}
 }

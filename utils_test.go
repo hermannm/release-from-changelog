@@ -6,12 +6,15 @@ import (
 	"testing"
 
 	"hermannm.dev/devlog"
-	"hermannm.dev/devlog/log"
+	"hermannm.dev/devlog/sloginit"
 )
 
 // This function runs before all test functions, to set up our logger.
 func TestMain(m *testing.M) {
-	log.SetDefault(devlog.NewHandler(os.Stdout, &devlog.Options{ForceColors: true}))
+	sloginit.InitPrettyLogHandler(
+		os.Stdout,
+		&devlog.Options{RenameErrorAttrKey: "cause", ForceColors: true},
+	)
 
 	os.Exit(m.Run())
 }
