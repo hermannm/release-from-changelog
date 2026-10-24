@@ -3,7 +3,7 @@ module hermannm.dev/release-from-changelog
 go 1.26.0
 
 require (
-	hermannm.dev/devlog v0.7.0
+	hermannm.dev/devlog v0.7.1
 	hermannm.dev/errclose v0.1.1
 	hermannm.dev/wrap v0.5.0
 )
